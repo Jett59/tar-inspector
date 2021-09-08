@@ -11,6 +11,15 @@ using std::ios;
 
 using std::string;
 
+static inline int octalToBinary (unsigned char* octal, int size) {
+    int result = 0;
+    for (int i = 0; i < size; i ++) {
+        result *= 8;
+        result += octal [i] - '0';
+    }
+    return result;
+}
+
 class FileData {
     public:
     const int size;
