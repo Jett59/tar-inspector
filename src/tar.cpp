@@ -11,6 +11,14 @@ using std::ios;
 
 using std::string;
 
+class FileData {
+    public:
+    const int size;
+    const string name;
+    const void* data;
+    FileData(int size, string name, void* data) : size(size), name(name), data(data) {}
+};
+
 int main (int argc, char* argv []) {
     cout << "Tar Inspector" << endl;
     if (argc < 2) {
