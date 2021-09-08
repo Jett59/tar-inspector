@@ -1,5 +1,24 @@
 #include <iostream>
+#include <fstream>
 
-int main () {
-    std::cout << "Tar Inspector" << std::endl;
+using std::cout;
+using std::cerr;
+using std::endl;
+
+using std::ifstream;
+using std::ios;
+
+int main (int argc, char* argv []) {
+    cout << "Tar Inspector" << endl;
+    if (argc < 2) {
+        cerr << "Please specify a file" << endl;
+        return -1;
+    }
+    ifstream input;
+    input.open(argv[1], ios::binary);
+    if (!input) {
+        cerr << "Error openning file!" << endl;
+        return -1;
+    }
+    input.close();
 }
