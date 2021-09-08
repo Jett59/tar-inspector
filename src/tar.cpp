@@ -11,6 +11,7 @@ using std::ifstream;
 using std::ios;
 
 using std::string;
+using std::memcmp;
 
 using std::vector;
 
@@ -25,14 +26,17 @@ static inline int octalToBinary (unsigned char* octal, int size) {
 
 class FileData {
     public:
-    const int size;
+    const unsigned int size;
     const string name;
     const void* data;
-    FileData(int size, string name, void* data) : size(size), name(name), data(data) {}
+    FileData(unsigned int size, string name, void* data) : size(size), name(name), data(data) {}
 };
 
 void printFileData(unsigned char* archive, int fileSize) {
     int offset = 0;
+    while (!memcmp(archive + offset, "ustar", 5)) {
+        offset ++;
+    }
     while (offset < fileSize) {
         cout << "File: " <<(archive + 345) << "/" << (archive + offset) << endl;
         int size = octalToBinary (archive + offset + 124, 12);
