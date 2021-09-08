@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 
 using std::cout;
 using std::cerr;
@@ -7,6 +8,8 @@ using std::endl;
 
 using std::ifstream;
 using std::ios;
+
+using std::string;
 
 int main (int argc, char* argv []) {
     cout << "Tar Inspector" << endl;
@@ -20,5 +23,8 @@ int main (int argc, char* argv []) {
         cerr << "Error openning file!" << endl;
         return -1;
     }
+    string str;
+    input >> str;
+    cout << str << endl;
     input.close();
 }
