@@ -41,7 +41,7 @@ void printFileData(unsigned char* archive, int fileSize) {
         cout << "File: " <<(archive + 345) << "/" << (archive + offset) << endl;
         int size = octalToBinary (archive + offset + 124, 11);
         cout << "Size: " << size << endl;
-        offset += (size + 511) / 512 * 512 + 512;
+        offset += ((size + 511) / 512 + 1) * 512;
     }
 }
 
@@ -61,10 +61,11 @@ int main (int argc, char* argv []) {
  vector<unsigned char> fileContent;
     while (!input.eof()) {
         char c;
-        input >> c;
+        input.get(c);
         fileContent.push_back(c);
         fileSize++;
     }
     input.close();
+    cout << "Tar archive: " << argv [1] << ", size: " << fileSize << endl;
     printFileData(fileContent.data(), fileSize);
 }
