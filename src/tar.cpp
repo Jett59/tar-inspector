@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 using std::cout;
 using std::cerr;
@@ -10,6 +11,8 @@ using std::ifstream;
 using std::ios;
 
 using std::string;
+
+using std::vector;
 
 static inline int octalToBinary (unsigned char* octal, int size) {
     int result = 0;
@@ -28,6 +31,16 @@ class FileData {
     FileData(int size, string name, void* data) : size(size), name(name), data(data) {}
 };
 
+void printFileData(unsigned char* archive, int fileSize) {
+    int offset = 0;
+    while (offset < fileSize) {
+        cout << "File: " <<(archive + 345) << "/" << (archive + offset) << endl;
+        int size = octalToBinary (archive + offset + 124, 12);
+        cout << "Size: " << size << endl;
+        offset += (size + 511) / 512 * 512 + 1;
+    }
+}
+
 int main (int argc, char* argv []) {
     cout << "Tar Inspector" << endl;
     if (argc < 2) {
@@ -40,8 +53,14 @@ int main (int argc, char* argv []) {
         cerr << "Error openning file!" << endl;
         return -1;
     }
-    string str;
-    input >> str;
-    cout << str << endl;
+    int fileSize = 0;
+ vector<unsigned char> fileContent;
+    while (!input.eof()) {
+        char c;
+        input >> c;
+        fileContent.push_back(c);
+        fileSize++;
+    }
     input.close();
+    printFileData(fileContent.data(), fileSize);
 }
