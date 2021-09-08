@@ -39,7 +39,7 @@ void printFileData(unsigned char* archive, int fileSize) {
     }
     while (offset < fileSize) {
         cout << "File: " <<(archive + 345) << "/" << (archive + offset) << endl;
-        int size = octalToBinary (archive + offset + 124, 12);
+        int size = octalToBinary (archive + offset + 124, 11);
         cout << "Size: " << size << endl;
         offset += (size + 511) / 512 * 512 + 1;
     }
