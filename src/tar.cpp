@@ -1,3 +1,4 @@
+#include <cstring>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -34,7 +35,7 @@ class FileData {
 
 void printFileData(unsigned char* archive, int fileSize) {
     int offset = 0;
-    while (!memcmp(archive + offset, "ustar", 5)) {
+    while (memcmp(archive + offset + 257, "ustar", 5)) {
         offset ++;
     }
     while (offset < fileSize) {
