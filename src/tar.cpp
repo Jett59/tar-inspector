@@ -38,7 +38,7 @@ void printFileData(unsigned char* archive, int fileSize) {
     while (memcmp(archive + offset + 257, "ustar", 5)) {
         offset ++;
     }
-    while (offset < fileSize) {
+    while (offset < fileSize && memcmp(archive + offset + 257, "ustar", 5) == 0) {
         unsigned char type = * (archive + offset + 156);
         cout << (type == '0' ? "File" : (type == '5' ? "Directory" : "<Unknown>")) << ": " << (archive + offset) << endl;
         int size = octalToBinary (archive + offset + 124, 11);
